@@ -7,65 +7,81 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FA621413-8982-4462-B63B-2FE4C352A7A3"
+            uuid = "BA395E81-4AF1-4498-888F-B68E03F64860"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MarvelHeroes/Presentation/Feature/MainTabBarController.swift"
+            filePath = "MarvelHeroes/Presentation/Feature/Series/ViewModel/CharactersViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "updateView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "68307E6E-6F40-4999-B0C3-0D4A295DB627"
+            uuid = "7E334C16-9CB2-4816-8DC3-317CA69E8C00"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MarvelHeroes/Presentation/Feature/Series/ViewModel/CharactersViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "updateView()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "7E334C16-9CB2-4816-8DC3-317CA69E8C00 - d805de2db1437ead"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MarvelHeroes.DefaultCharactersViewModel.updateView() -&gt; ()"
+                  moduleName = "MarvelHeroes"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/srojas/Documents/XCode/MarvelHeroes/MarvelHeroes/Presentation/Feature/Series/ViewModel/CharactersViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "509">
+               </Location>
+               <Location
+                  uuid = "7E334C16-9CB2-4816-8DC3-317CA69E8C00 - f3543e0142a2891c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;MarvelHeroes.CharactersList, Swift.Error&gt;) -&gt; () in MarvelHeroes.DefaultCharactersViewModel.updateView() -&gt; ()"
+                  moduleName = "MarvelHeroes"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/srojas/Documents/XCode/MarvelHeroes/MarvelHeroes/Presentation/Feature/Series/ViewModel/CharactersViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "121">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DF23F61A-82BE-4F35-A6E9-D59987ECA4FC"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MarvelHeroes/Presentation/Feature/MainTabBarController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "68307E6E-6F40-4999-B0C3-0D4A295DB627 - d88bc4ee31d05929"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MarvelHeroes.MainTabBarController.viewDidLoad() -&gt; ()"
-                  moduleName = "MarvelHeroes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/srojas/Documents/XCode/MarvelHeroes/MarvelHeroes/Presentation/Feature/MainTabBarController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "32"
-                  endingLineNumber = "32"
-                  offsetFromSymbolStart = "690">
-               </Location>
-               <Location
-                  uuid = "68307E6E-6F40-4999-B0C3-0D4A295DB627 - 35fa5b46b23ea92e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;MarvelHeroes.CharactersList, Swift.Error&gt;) -&gt; () in MarvelHeroes.MainTabBarController.viewDidLoad() -&gt; ()"
-                  moduleName = "MarvelHeroes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/srojas/Documents/XCode/MarvelHeroes/MarvelHeroes/Presentation/Feature/MainTabBarController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "32"
-                  endingLineNumber = "32"
-                  offsetFromSymbolStart = "121">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

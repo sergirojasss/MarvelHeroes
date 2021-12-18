@@ -27,7 +27,7 @@
         <!--heroes-->
         <scene sceneID="9At-JY-wGc">
             <objects>
-                <viewController title="heroes" id="SgA-gl-saD" sceneMemberID="viewController">
+                <viewController title="heroes" id="SgA-gl-saD" customClass="CharactersViewController" customModule="MarvelHeroes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2bx-p5-obP">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
