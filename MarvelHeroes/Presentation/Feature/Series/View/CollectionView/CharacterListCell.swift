@@ -13,6 +13,7 @@ class CharacterListCell: UICollectionViewCell {
        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     var title: UILabel = {
@@ -31,7 +32,6 @@ class CharacterListCell: UICollectionViewCell {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-//        fatalError("init(coder:) has not been implemented")
     }
 
     override func prepareForReuse() {
@@ -51,8 +51,8 @@ private extension CharacterListCell {
             title.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 20),
-            imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 20),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
         ])
     }
 }

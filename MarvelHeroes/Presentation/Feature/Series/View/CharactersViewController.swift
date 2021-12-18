@@ -12,7 +12,7 @@ class CharactersViewController: UIViewController {
     
     var viewModel: CharacterViewModel?
     
-    private var model: [CharacterInfo] = [] {
+    private var model: [CharacterModel] = [] {
         didSet {
             self.collectionView.reloadData()
         }
@@ -64,7 +64,7 @@ private extension CharactersViewController {
     func setupBinding() {
         viewModel?.items.bind(listener: { [weak self] items in
             guard let items = items else { return }
-            self?.model = items
+            self?.model = items.map { CharacterModel.makeModel(from: $0) }
         })
     }
 }
@@ -80,6 +80,11 @@ extension CharactersViewController: UICollectionViewDataSource, UICollectionView
         let hero = model[indexPath.row]
         cell.title.text = hero.name
         cell.backgroundColor = UIColor.black.withAlphaComponent(0.1)
+        
+        //TODO: add cache
+        if let url = URL(string: hero.imageUrl) {
+            cell.imageView.load(url: url)
+        }
         
         return cell
     }
