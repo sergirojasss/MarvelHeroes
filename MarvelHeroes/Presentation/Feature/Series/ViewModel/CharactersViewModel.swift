@@ -17,7 +17,7 @@ protocol CharacterViewModelInput {
 }
 
 protocol CharacterViewModelOutput {
-    var items: CharacterInfo? { get }
+    var items: Box<[CharacterInfo]?> { get }
     var loadingStatus: Bool? { get }
     var error: Error? { get }
 }
@@ -26,7 +26,7 @@ class DefaultCharactersViewModel: CharacterViewModel {
     private let disposeBag: DisposeBag = DisposeBag()
     private let useCase: CharactersUseCase
     
-    var items: CharacterInfo?
+    var items: Box<[CharacterInfo]?> = Box(nil)
     var loadingStatus: Bool?
     var error: Error?
 
@@ -44,7 +44,7 @@ class DefaultCharactersViewModel: CharacterViewModel {
             .subscribe{ event in
                 switch event {
                 case .success(let characterList):
-                    break
+                    self.items.value = characterList.data?.results
                 case .failure(let error):
                     break
                 }
