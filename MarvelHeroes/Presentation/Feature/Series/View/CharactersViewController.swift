@@ -59,6 +59,7 @@ private extension CharactersViewController {
                     .items(cellIdentifier: "characterListCell",
                            cellType: CharacterListCell.self)) { row, model, cell in
             //TODO: Avoid reloading visible cells
+            //TODO: prepareForReuse not called
             cell.title.text = model.name
             //TODO: add cache
             if let url = URL(string: model.imageUrl) {
@@ -71,6 +72,7 @@ private extension CharactersViewController {
             let offSetY = self.collectionView.contentOffset.y
             let contentHeight = self.collectionView.contentSize.height
 
+            //TODO: Hate this solution for pagination. But learning rxCocoa
             if offSetY > (contentHeight - self.collectionView.frame.size.height - 100) {
                 self.viewModel?.fetchMoreData()
             }
