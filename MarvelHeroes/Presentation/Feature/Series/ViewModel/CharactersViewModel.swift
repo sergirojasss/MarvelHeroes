@@ -13,20 +13,23 @@ protocol CharacterViewModel: CharacterViewModelInput, CharacterViewModelOutput {
 protocol CharacterViewModelInput {
     func viewDidLoad()
     func updateView()
+    func fetchMoreData()
     func image()
 }
 
 protocol CharacterViewModelOutput {
-    var items: Box<[CharacterInfo]?> { get }
-    var loadingStatus: Bool? { get }
+    var items: PublishSubject<[CharacterModel]> { get }
+    var loadingStatus: Bool? { get } //TODO: manage loading view
     var error: Error? { get }
 }
 
 class DefaultCharactersViewModel: CharacterViewModel {
     private let disposeBag: DisposeBag = DisposeBag()
     private let useCase: CharactersUseCase
+    private var isLoading: Bool = false
+    private var addedItems: [CharacterModel] = []
     
-    var items: Box<[CharacterInfo]?> = Box(nil)
+    var items: PublishSubject<[CharacterModel]> = PublishSubject<[CharacterModel]>()
     var loadingStatus: Bool?
     var error: Error?
 
@@ -38,19 +41,36 @@ class DefaultCharactersViewModel: CharacterViewModel {
         updateView()
     }
     
+    func fetchMoreData() {
+        executeUseCase(moreData: true)
+    }
+    
     func updateView() {
-        useCase.execute()
+        executeUseCase(moreData: false)
+    }
+    
+    func image() {
+    }
+}
+
+//MARK: - Private methods
+private extension DefaultCharactersViewModel {
+    func executeUseCase(moreData: Bool) {
+        if isLoading { return }
+        isLoading = true
+        useCase.execute(moreData: moreData)
             .observe(on: MainScheduler.instance)
             .subscribe{ event in
                 switch event {
                 case .success(let characterList):
-                    self.items.value = characterList.data?.results
-                case .failure(let error):
+                    let arrayMaped = characterList.data?.results?.map { CharacterModel.makeModel(from: $0) }
+                    self.addedItems.append(contentsOf: arrayMaped ?? [])
+                    self.items.onNext(self.addedItems)
+                case .failure(_):
+                    //TODO: failure case
                     break
                 }
+                self.isLoading = false
             }.disposed(by: disposeBag)
-    }
-    
-    func image() {
     }
 }

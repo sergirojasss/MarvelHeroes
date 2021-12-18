@@ -9,18 +9,24 @@ import Foundation
 import RxSwift
 
 protocol CharactersUseCase {
-    func execute() -> Single<CharactersList>
+    func execute(moreData: Bool) -> Single<CharactersList>
 }
 
 final class DefaultCharactersUseCase: CharactersUseCase {
     
+    private enum Constants {
+        static let nextPage = 20
+    }
+    
     private let charactersListRepo: CharactersRepository
+    private var page: Int = 0
     
     init(charactersListRepo: CharactersRepository = DefaultCharactersRepository()) {
         self.charactersListRepo = charactersListRepo
     }
     
-    func execute() -> Single<CharactersList> {
-        return charactersListRepo.charactersList().map{ $0.toDomain() }
+    func execute(moreData: Bool) -> Single<CharactersList> {
+        if moreData { page += Constants.nextPage }
+        return charactersListRepo.charactersList(skip: page).map{ $0.toDomain() }
     }
 }

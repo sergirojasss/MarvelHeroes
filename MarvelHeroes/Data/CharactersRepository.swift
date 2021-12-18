@@ -19,16 +19,24 @@ extension DefaultCharactersRepository: CharactersRepository {
         static let apiKey = "apikey"
         static let ts = "ts"
         static let hash = "hash"
+        static let limitString = "limit"
+        static let limit = 20
+        static let offsetString = "offset"
     }
     
-    func charactersList() -> Single<CharactersListResponse> {
+    func charactersList(skip: Int? = 0) -> Single<CharactersListResponse> {
         return Single.create { single -> Disposable in
             let timeStamp = Utils.getTimeStamp()
-            let parameters = [
+            var parameters: [String : Any] = [
                 RepoConstants.apiKey : Constants.publicKey,
                 RepoConstants.ts : timeStamp,
-                RepoConstants.hash : Utils.getHash(timeStamp)
+                RepoConstants.hash : Utils.getHash(timeStamp),
+                RepoConstants.limitString : RepoConstants.limit
             ]
+            
+            if let skip = skip {
+                parameters[RepoConstants.offsetString] = skip
+            }
             
             AF.request(Constants.urlBase, parameters: parameters).response { response in
                 switch response.data {

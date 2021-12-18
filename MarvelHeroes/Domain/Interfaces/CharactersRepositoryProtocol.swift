@@ -9,5 +9,5 @@ import Foundation
 import RxSwift
 
 protocol CharactersRepository {
-    func charactersList() -> Single<CharactersListResponse>
+    func charactersList(skip: Int?) -> Single<CharactersListResponse>
 }

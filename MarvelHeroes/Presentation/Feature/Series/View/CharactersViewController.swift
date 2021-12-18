@@ -30,7 +30,6 @@ class CharactersViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupCollectionView()
-        setupBinding()
         viewModel?.viewDidLoad()
     }
 }
@@ -55,23 +54,28 @@ private extension CharactersViewController {
     
     func setupCollectionView() {
         collectionView.register(CharacterListCell.self, forCellWithReuseIdentifier: "characterListCell")
-        model.bind(to: collectionView
+        viewModel?.items.bind(to: collectionView
                     .rx
                     .items(cellIdentifier: "characterListCell",
                            cellType: CharacterListCell.self)) { row, model, cell in
+            //TODO: Avoid reloading visible cells
             cell.title.text = model.name
             //TODO: add cache
             if let url = URL(string: model.imageUrl) {
                 cell.imageView.load(url: url)
             }
         }.disposed(by: disposeBag)
-    }
-    
-    func setupBinding() {
-        viewModel?.items.bind(listener: { [weak self] items in
-            guard let items = items else { return }
-            self?.model.onNext(items.map { CharacterModel.makeModel(from: $0) })
-            self?.model.onCompleted()
-        })
+        
+        collectionView.rx.didScroll.subscribe { [weak self] _ in
+            guard let self = self else { return }
+            let offSetY = self.collectionView.contentOffset.y
+            let contentHeight = self.collectionView.contentSize.height
+
+            if offSetY > (contentHeight - self.collectionView.frame.size.height - 100) {
+                self.viewModel?.fetchMoreData()
+            }
+        }
+        .disposed(by: disposeBag)
+
     }
 }
