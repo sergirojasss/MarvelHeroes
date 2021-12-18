@@ -7,16 +7,14 @@
 
 import UIKit
 import RxCocoa
+import RxSwift
 
 class CharactersViewController: UIViewController {
     
+    private var disposeBag = DisposeBag()
     var viewModel: CharacterViewModel?
     
-    private var model: [CharacterModel] = [] {
-        didSet {
-            self.collectionView.reloadData()
-        }
-    }
+    private var model: PublishSubject<[CharacterModel]> = PublishSubject<[CharacterModel]>()
     private let collectionView: UICollectionView = {
         let layout = CustomCollectionViewLayout()
         layout.scrollDirection = .vertical
@@ -57,35 +55,23 @@ private extension CharactersViewController {
     
     func setupCollectionView() {
         collectionView.register(CharacterListCell.self, forCellWithReuseIdentifier: "characterListCell")
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        model.bind(to: collectionView
+                    .rx
+                    .items(cellIdentifier: "characterListCell",
+                           cellType: CharacterListCell.self)) { row, model, cell in
+            cell.title.text = model.name
+            //TODO: add cache
+            if let url = URL(string: model.imageUrl) {
+                cell.imageView.load(url: url)
+            }
+        }.disposed(by: disposeBag)
     }
     
     func setupBinding() {
         viewModel?.items.bind(listener: { [weak self] items in
             guard let items = items else { return }
-            self?.model = items.map { CharacterModel.makeModel(from: $0) }
+            self?.model.onNext(items.map { CharacterModel.makeModel(from: $0) })
+            self?.model.onCompleted()
         })
-    }
-}
-
-//MARK: - CollectionViewMethods
-extension CharactersViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return model.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "characterListCell", for: indexPath) as? CharacterListCell else { return UICollectionViewCell() }
-        let hero = model[indexPath.row]
-        cell.title.text = hero.name
-        cell.backgroundColor = UIColor.black.withAlphaComponent(0.1)
-        
-        //TODO: add cache
-        if let url = URL(string: hero.imageUrl) {
-            cell.imageView.load(url: url)
-        }
-        
-        return cell
     }
 }

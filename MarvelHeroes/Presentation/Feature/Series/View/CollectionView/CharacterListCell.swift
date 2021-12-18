@@ -28,6 +28,7 @@ class CharacterListCell: UICollectionViewCell {
         addSubview(imageView)
         addSubview(title)
         setupConstraints()
+        setupView()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -42,6 +43,10 @@ class CharacterListCell: UICollectionViewCell {
 
 //MARK: - Private methods
 private extension CharacterListCell {
+    func setupView() {
+        backgroundColor = UIColor.black.withAlphaComponent(0.05)
+    }
+    
     func setupConstraints() {
         NSLayoutConstraint.activate([
             title.topAnchor.constraint(equalTo: topAnchor, constant: 20),
