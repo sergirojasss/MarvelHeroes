@@ -81,8 +81,24 @@ extension CharactersViewController: UICollectionViewDataSource, UICollectionView
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "characterListCell", for: indexPath) as? CharacterListCell else { return UICollectionViewCell() }
         let hero = model[indexPath.row]
         cell.title.text = hero.name
-        if let url = URL(string: hero.imageUrl) {
-            cell.imageView.load(url: url)
+        
+        // if the image is already loaded
+        if let imageData = hero.image.value,
+           let image = UIImage(data: imageData) {
+            DispatchQueue.main.async {
+                cell.imageView.image = image
+            }
+        } else { // load image from url
+            hero.image.bind { data in
+                if let data = data, let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        cell.imageView.image = image
+                    }
+                }
+            }
+            Utils.loadImageData(from: hero.imageUrl) { data in
+                hero.image.value = data
+            }
         }
         
         return cell

@@ -16,4 +16,14 @@ public struct Utils {
     static func getHash(_ timeStamp: String) -> String {
         return "\(timeStamp)\(Constants.privateKey)\(Constants.publicKey)".md5
     }
+    
+    static func loadImageData(from url: String, completion: @escaping (Data?) -> ()) {
+        DispatchQueue.global().async {
+            if let url = URL(string: url),
+               let data = try? Data(contentsOf: url) {
+                completion(data)
+            }
+        }
+    }
 }
+

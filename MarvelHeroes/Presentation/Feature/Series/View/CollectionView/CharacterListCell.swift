@@ -20,6 +20,7 @@ class CharacterListCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         
+        label.numberOfLines = 0
         return label
     }()
     
