@@ -11,6 +11,20 @@ class CharacterDetailViewController: UIViewController {
     
     var viewModel: CharacterDetailViewModel?
     
+    private let scrollView: UIScrollView = {
+        let scroll = UIScrollView()
+        scroll.translatesAutoresizingMaskIntoConstraints = false
+        
+        return scroll
+    }()
+    
+    private let contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -58,10 +72,12 @@ class CharacterDetailViewController: UIViewController {
 private extension CharacterDetailViewController {
     func setupView() {
         view.backgroundColor = .systemBackground
-        view.addSubview(imageView)
-        view.addSubview(titleLabel)
-        view.addSubview(descriptionLabel)
-        view.addSubview(comicsLabel)
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(imageView)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(descriptionLabel)
+        contentView.addSubview(comicsLabel)
         setupConstraints()
         fillView()
     }
@@ -69,7 +85,12 @@ private extension CharacterDetailViewController {
     func setupConstraints() {
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            scrollView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+
+            imageView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             imageView.heightAnchor.constraint(equalToConstant: 200),
@@ -77,17 +98,18 @@ private extension CharacterDetailViewController {
             titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
             titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: safeArea.leadingAnchor),
             titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: safeArea.trailingAnchor),
-            titleLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            titleLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
             descriptionLabel.leadingAnchor.constraint(greaterThanOrEqualTo: safeArea.leadingAnchor, constant: 20),
             descriptionLabel.trailingAnchor.constraint(lessThanOrEqualTo: safeArea.trailingAnchor, constant: -20),
-            descriptionLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            descriptionLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
 
             comicsLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10),
             comicsLabel.leadingAnchor.constraint(greaterThanOrEqualTo: safeArea.leadingAnchor, constant: 20),
             comicsLabel.trailingAnchor.constraint(lessThanOrEqualTo: safeArea.trailingAnchor, constant: -20),
-            comicsLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            comicsLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            comicsLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
 
         ])
     }
