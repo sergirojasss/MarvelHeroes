@@ -104,4 +104,8 @@ extension CharactersViewController: UICollectionViewDataSource, UICollectionView
             viewModel?.fetchMoreData()
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel?.didSelect(indexPath.row)
+    }
 }
