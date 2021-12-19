@@ -5,7 +5,7 @@
 //  Created by ROJAS SERRA Sergi on 18/12/21.
 //
 
-import UIKit
+import Foundation
 
 struct CharacterModel {
     let name: String
