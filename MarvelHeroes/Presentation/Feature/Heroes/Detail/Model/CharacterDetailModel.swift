@@ -8,4 +8,9 @@
 import Foundation
 
 struct CharacterDetailModel {
+    var name: String
+    var image: Data?
+    var description: String?
+    var comics: AddedInfoListModel?
+    var stories: AddedInfoListModel?
 }

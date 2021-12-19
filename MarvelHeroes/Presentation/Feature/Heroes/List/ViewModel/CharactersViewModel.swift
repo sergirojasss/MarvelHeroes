@@ -52,9 +52,14 @@ class DefaultCharactersViewModel: CharacterViewModel {
     func didSelect(_ row: Int) -> UIViewController {
         let heroModel = items.value?[row]
         
-        let detailModel = CharacterDetailModel()
-        let detailViewModel = CharacterDetailViewModel()
+        let detailModel = CharacterDetailModel(name: heroModel?.name ?? "noName",
+                                               image: heroModel?.image.value,
+                                               description: heroModel?.characterDescription,
+                                               comics: heroModel?.comics,
+                                               stories: heroModel?.stories)
+        let detailViewModel = CharacterDetailViewModel(model: detailModel)
         let detailController = CharacterDetailViewController()
+        detailController.viewModel = detailViewModel
         
         return detailController
     }
