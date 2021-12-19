@@ -225,6 +225,9 @@
 		A8594517276C9EA000652E8B /* Heroes */ = {
 			isa = PBXGroup;
 			children = (
+				A859451C276C9F8500652E8B /* Model */,
+				A859451E276C9F9000652E8B /* View */,
+				A859451F276C9F9600652E8B /* ViewModel */,
 			);
 			path = Heroes;
 			sourceTree = "<group>";
@@ -232,9 +235,6 @@
 		A8594518276C9EAA00652E8B /* Series */ = {
 			isa = PBXGroup;
 			children = (
-				A859451C276C9F8500652E8B /* Model */,
-				A859451E276C9F9000652E8B /* View */,
-				A859451F276C9F9600652E8B /* ViewModel */,
 			);
 			path = Series;
 			sourceTree = "<group>";
