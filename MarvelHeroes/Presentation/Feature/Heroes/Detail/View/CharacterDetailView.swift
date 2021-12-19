@@ -57,6 +57,14 @@ class CharacterDetailViewController: UIViewController {
         return label
     }()
 
+    private let storiesLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        label.numberOfLines = 0
+        return label
+    }()
+
     //MARK: - LigeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,6 +86,7 @@ private extension CharacterDetailViewController {
         contentView.addSubview(titleLabel)
         contentView.addSubview(descriptionLabel)
         contentView.addSubview(comicsLabel)
+        contentView.addSubview(storiesLabel)
         setupConstraints()
         fillView()
     }
@@ -101,15 +110,17 @@ private extension CharacterDetailViewController {
             titleLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
-            descriptionLabel.leadingAnchor.constraint(greaterThanOrEqualTo: safeArea.leadingAnchor, constant: 20),
-            descriptionLabel.trailingAnchor.constraint(lessThanOrEqualTo: safeArea.trailingAnchor, constant: -20),
-            descriptionLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            descriptionLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+            descriptionLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
 
-            comicsLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10),
-            comicsLabel.leadingAnchor.constraint(greaterThanOrEqualTo: safeArea.leadingAnchor, constant: 20),
-            comicsLabel.trailingAnchor.constraint(lessThanOrEqualTo: safeArea.trailingAnchor, constant: -20),
-            comicsLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            comicsLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+            comicsLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 50),
+            comicsLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+            comicsLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
+
+            storiesLabel.topAnchor.constraint(equalTo: comicsLabel.bottomAnchor, constant: 50),
+            storiesLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+            storiesLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
+            storiesLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
 
         ])
     }
@@ -123,5 +134,6 @@ private extension CharacterDetailViewController {
         titleLabel.text = viewModel?.name
         descriptionLabel.text = viewModel?.description
         comicsLabel.text = viewModel?.comics?.joined(separator: "\n\n")
+        storiesLabel.text = viewModel?.stories?.joined(separator: "\n\n")
     }
 }
