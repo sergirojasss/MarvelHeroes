@@ -18,7 +18,7 @@ protocol CharacterViewModelInput {
 }
 
 protocol CharacterViewModelOutput {
-    var items: PublishSubject<[CharacterModel]> { get }
+    var items: Box<[CharacterModel]?> { get }
     var loadingStatus: Bool? { get } //TODO: manage loading view
     var error: Error? { get }
 }
@@ -29,7 +29,7 @@ class DefaultCharactersViewModel: CharacterViewModel {
     private var isLoading: Bool = false
     private var addedItems: [CharacterModel] = []
     
-    var items: PublishSubject<[CharacterModel]> = PublishSubject<[CharacterModel]>()
+    var items: Box<[CharacterModel]?> = Box([])
     var loadingStatus: Bool?
     var error: Error?
 
@@ -65,7 +65,7 @@ private extension DefaultCharactersViewModel {
                 case .success(let characterList):
                     let arrayMaped = characterList.data?.results?.map { CharacterModel.makeModel(from: $0) }
                     self.addedItems.append(contentsOf: arrayMaped ?? [])
-                    self.items.onNext(self.addedItems)
+                    self.items.value = self.addedItems
                 case .failure(_):
                     //TODO: failure case
                     break

@@ -14,7 +14,11 @@ class CharactersViewController: UIViewController {
     private var disposeBag = DisposeBag()
     var viewModel: CharacterViewModel?
     
-    private var model: PublishSubject<[CharacterModel]> = PublishSubject<[CharacterModel]>()
+    private var model: [CharacterModel] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     private let collectionView: UICollectionView = {
         let layout = CustomCollectionViewLayout()
         layout.scrollDirection = .vertical
@@ -30,6 +34,7 @@ class CharactersViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupCollectionView()
+        setupBinding()
         viewModel?.viewDidLoad()
     }
 }
@@ -54,30 +59,38 @@ private extension CharactersViewController {
     
     func setupCollectionView() {
         collectionView.register(CharacterListCell.self, forCellWithReuseIdentifier: "characterListCell")
-        viewModel?.items.bind(to: collectionView
-                    .rx
-                    .items(cellIdentifier: "characterListCell",
-                           cellType: CharacterListCell.self)) { row, model, cell in
-            //TODO: Avoid reloading visible cells
-            //TODO: prepareForReuse not called
-            cell.title.text = model.name
-            //TODO: add cache
-            if let url = URL(string: model.imageUrl) {
-                cell.imageView.load(url: url)
-            }
-        }.disposed(by: disposeBag)
-        
-        collectionView.rx.didScroll.subscribe { [weak self] _ in
-            guard let self = self else { return }
-            let offSetY = self.collectionView.contentOffset.y
-            let contentHeight = self.collectionView.contentSize.height
+        collectionView.dataSource = self
+        collectionView.delegate = self
+    }
+    
+    func setupBinding() {
+        viewModel?.items.bind(listener: { [weak self] items in
+            guard let items = items else { return }
+            self?.model = items
+        })
+    }
+}
 
-            //TODO: Hate this solution for pagination. But learning rxCocoa
-            if offSetY > (contentHeight - self.collectionView.frame.size.height - 100) {
-                self.viewModel?.fetchMoreData()
-            }
+//MARK: - CollectionViewMethods
+extension CharactersViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return model.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "characterListCell", for: indexPath) as? CharacterListCell else { return UICollectionViewCell() }
+        let hero = model[indexPath.row]
+        cell.title.text = hero.name
+        if let url = URL(string: hero.imageUrl) {
+            cell.imageView.load(url: url)
         }
-        .disposed(by: disposeBag)
-
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == model.count - 1 {
+            viewModel?.fetchMoreData()
+        }
     }
 }
