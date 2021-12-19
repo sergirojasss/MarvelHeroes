@@ -106,6 +106,9 @@ extension CharactersViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel?.didSelect(indexPath.row)
+        if let controller = viewModel?.didSelect(indexPath.row) {
+            navigationController?.pushViewController(controller, animated: true)
+        }
+        
     }
 }

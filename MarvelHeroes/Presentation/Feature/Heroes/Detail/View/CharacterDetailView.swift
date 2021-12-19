@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CharacterDetailView: UIViewController {
+class CharacterDetailViewController: UIViewController {
     
     var viewModel: CharacterDetailViewModel?
 }

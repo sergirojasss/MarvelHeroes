@@ -14,7 +14,7 @@ protocol CharacterViewModelInput {
     func viewDidLoad()
     func updateView()
     func fetchMoreData()
-    func didSelect(_ row: Int)
+    func didSelect(_ row: Int) -> UIViewController
 }
 
 protocol CharacterViewModelOutput {
@@ -49,10 +49,14 @@ class DefaultCharactersViewModel: CharacterViewModel {
         executeUseCase(moreData: false)
     }
     
-    func didSelect(_ row: Int) {
-        //go to hero detail
+    func didSelect(_ row: Int) -> UIViewController {
         let heroModel = items.value?[row]
         
+        let detailModel = CharacterDetailModel()
+        let detailViewModel = CharacterDetailViewModel()
+        let detailController = CharacterDetailViewController()
+        
+        return detailController
     }
 }
 
