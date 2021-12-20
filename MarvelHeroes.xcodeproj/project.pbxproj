@@ -402,9 +402,8 @@
 		A88F49772770757400D1BE65 /* Series */ = {
 			isa = PBXGroup;
 			children = (
-				A88F499C27709CBF00D1BE65 /* Model */,
-				A88F499B27709CBB00D1BE65 /* View */,
-				A88F499A27709CB600D1BE65 /* ViewModel */,
+				A88F49AF2770BD8400D1BE65 /* Search */,
+				A88F49B02770BD8F00D1BE65 /* Detail */,
 			);
 			path = Series;
 			sourceTree = "<group>";
@@ -429,6 +428,47 @@
 			isa = PBXGroup;
 			children = (
 				A88F49AA27709D4000D1BE65 /* SeriesModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A88F49AF2770BD8400D1BE65 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				A88F499C27709CBF00D1BE65 /* Model */,
+				A88F499B27709CBB00D1BE65 /* View */,
+				A88F499A27709CB600D1BE65 /* ViewModel */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		A88F49B02770BD8F00D1BE65 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				A88F49B32770BD9E00D1BE65 /* Model */,
+				A88F49B22770BD9C00D1BE65 /* View */,
+				A88F49B12770BD9A00D1BE65 /* ViewModel */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		A88F49B12770BD9A00D1BE65 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A88F49B22770BD9C00D1BE65 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A88F49B32770BD9E00D1BE65 /* Model */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = Model;
 			sourceTree = "<group>";
