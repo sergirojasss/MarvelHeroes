@@ -1,39 +1,35 @@
 //
-//  CharactersRepository.swift
+//  SeriesRepository.swift
 //  MarvelHeroes
 //
-//  Created by ROJAS SERRA Sergi on 17/12/21.
+//  Created by ROJAS SERRA Sergi on 20/12/21.
 //
 
 import Foundation
 import Alamofire
 import RxSwift
 
-final class DefaultCharactersRepository: CharactersRepository {
+final class DefaultSeriesRepository: SeriesRepository {
     
     private enum RepoConstants {
-        static let limit = 20
+        static let offset = 5
     }
     
-    func charactersList(skip: Int? = 0) -> Single<CharactersListResponse> {
+    func seriesList(serie: String) -> Single<SeriesListResponse> {
         return Single.create { single -> Disposable in
-            let url = "\(Constants.urlBase)\(Constants.charactersCall)"
+            let url = "\(Constants.urlBase)\(Constants.seriesCall)"
             let timeStamp = Utils.getTimeStamp()
-            var parameters: [String : Any] = [
+            let parameters: [String : Any] = [
                 Params.apiKey : Constants.publicKey,
                 Params.ts : timeStamp,
                 Params.hash : Utils.getHash(timeStamp),
-                Params.limitString : RepoConstants.limit
+                Params.offsetString : RepoConstants.offset
             ]
-            
-            if let skip = skip {
-                parameters[Params.offsetString] = skip
-            }
-            
+                        
             AF.request(url, parameters: parameters).response { response in
                 switch response.data {
                 case .some(let data):
-                    guard let response = try? JSONDecoder().decode(CharactersListResponse.self, from: data) else {
+                    guard let response = try? JSONDecoder().decode(SeriesListResponse.self, from: data) else {
                         single(.failure(ServiceError.mappingError))
                         return
                     }
