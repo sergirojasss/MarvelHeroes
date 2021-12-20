@@ -12,7 +12,8 @@ import RxSwift
 final class DefaultSeriesRepository: SeriesRepository {
     
     private enum RepoConstants {
-        static let offset = 5
+        static let startsWith = "titleStartsWith"
+        static let limit = 5
     }
     
     func seriesList(serie: String) -> Single<SeriesListResponse> {
@@ -23,7 +24,8 @@ final class DefaultSeriesRepository: SeriesRepository {
                 Params.apiKey : Constants.publicKey,
                 Params.ts : timeStamp,
                 Params.hash : Utils.getHash(timeStamp),
-                Params.offsetString : RepoConstants.offset
+                Params.limitString : RepoConstants.limit,
+                RepoConstants.startsWith : serie
             ]
                         
             AF.request(url, parameters: parameters).response { response in

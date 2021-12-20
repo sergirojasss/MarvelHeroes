@@ -12,7 +12,7 @@ protocol SeriesViewModel: SeriesViewModelInput, SeriesViewModelOutput {}
 
 protocol SeriesViewModelInput {
     func viewDidLoad()
-    func fetchMoreData()
+    func searchSeries(text: String)
     func didSelect(_ row: Int) -> UIViewController
 }
 
@@ -23,6 +23,8 @@ protocol SeriesViewModelOutput {
 }
 
 struct DefaultSeriesViewModel: SeriesViewModel {
+    private let disposeBag = DisposeBag()
+
     let seriesUseCase: SeriesUseCase
     var items: Box<[SeriesModel]?> = Box([])
     var loadingStatus: Bool?
@@ -35,10 +37,22 @@ struct DefaultSeriesViewModel: SeriesViewModel {
     func viewDidLoad() {
     }
     
-    func fetchMoreData() {
+    func searchSeries(text: String) {
+        seriesUseCase.execute(startsWith: text)
+            .observe(on: MainScheduler.instance)
+            .subscribe({ event in
+                switch event {
+                case .success(let seriesList):
+                    self.items.value = seriesList.data?.results?.map { SeriesModel.makeModel(from: $0) }
+                case .failure(let error):
+                    //TODO: Error case
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
-    func didSelect(_ row: Int) -> UIViewController {
-        return UIViewController()
+    func didSelect(_ row: Int) -> Any? {
+        return nil
     }
 }

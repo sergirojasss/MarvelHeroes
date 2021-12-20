@@ -8,4 +8,10 @@
 import Foundation
 
 struct SeriesModel {
+    
+    var title: String?
+    
+    static func makeModel(from domain: SeriesDetailInfo) -> SeriesModel {
+        return SeriesModel(title: domain.title)
+    }
 }
