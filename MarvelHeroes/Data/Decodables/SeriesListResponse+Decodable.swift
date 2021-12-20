@@ -78,6 +78,8 @@ struct SeriesDetailInfoResponse: Decodable {
     }
 }
 
+
+//TODO: Refactor and rename all Decodables and entities. Little bit confusing some of them
 struct CreatorsListInfoResponse: Decodable {
     let available: Int?
     let collectionURI: String?

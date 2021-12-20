@@ -49,6 +49,7 @@ struct DefaultSeriesDetailViewModel: SeriesDetailViewModel {
             .subscribe { event in
                 switch event {
                 case .success(let characterList):
+                    //TODO: create empty state for whenever 'characterList' will be empty
                     self.characters.value = characterList.data?.results?.map { CharacterModel.makeModel(from: $0) }
                 case .failure(_):
                     //TODO: failure case

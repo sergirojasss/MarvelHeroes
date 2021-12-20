@@ -35,7 +35,7 @@ class SeriesViewController: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         
         textField.isUserInteractionEnabled = true
-        textField.placeholder = "xxxx"
+        textField.placeholder = Constans.placeholder
         textField.borderStyle = .roundedRect
         textField.keyboardType = .alphabet
         textField.autocorrectionType = .no
@@ -47,7 +47,7 @@ class SeriesViewController: UIViewController {
         stack.translatesAutoresizingMaskIntoConstraints = false
         
         stack.axis = .vertical
-        stack.spacing = 20
+        stack.spacing = Constans.spaceing
         return stack
     }()
     
@@ -81,17 +81,17 @@ private extension SeriesViewController {
             scrollView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
 
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: Constans.margin),
+            contentView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: Constans.margin),
+            contentView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -Constans.margin),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
 
             searchTextField.topAnchor.constraint(equalTo: contentView.topAnchor),
             searchTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             searchTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            searchTextField.heightAnchor.constraint(equalToConstant: 50),
+            searchTextField.heightAnchor.constraint(equalToConstant: Constans.searchTextFieldHeight),
 
-            stackView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 20),
+            stackView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: Constans.spaceing),
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
@@ -124,7 +124,7 @@ private extension SeriesViewController {
             .text
             .observe(on: MainScheduler.asyncInstance)
             .distinctUntilChanged()
-            .throttle(.milliseconds(2000), scheduler: MainScheduler.instance)
+            .throttle(.milliseconds(Constans.twoSeconds), scheduler: MainScheduler.instance)
             .map( { text in
                 if let text = text,
                    !text.isEmpty {
@@ -142,3 +142,13 @@ private extension SeriesViewController {
         navigationController?.pushViewController(controller, animated: true)
     }
 }
+
+//MARK: - Constants
+private enum Constans {
+    static let placeholder = "Which comic are you looking for?"
+    static let margin: CGFloat = 20
+    static let spaceing: CGFloat = 20
+    static let searchTextFieldHeight: CGFloat = 50
+    static let twoSeconds = 2000
+}
+

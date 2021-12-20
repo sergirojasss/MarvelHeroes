@@ -96,18 +96,19 @@ private extension SeriesDetailViewController {
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            imageView.heightAnchor.constraint(equalToConstant: 200),
+            imageView.heightAnchor.constraint(equalToConstant: Constans.itemHeight),
 
-            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
+            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: Constans.spaceing),
             titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: contentView.leadingAnchor),
             titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor),
             titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             
-            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: Constans.spaceing),
+            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constans.margin),
+            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constans.margin),
+            descriptionLabel.heightAnchor.constraint(lessThanOrEqualToConstant: Constans.itemHeight),
 
-            collectionView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 50),
+            collectionView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: Constans.margin),
             collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
@@ -137,6 +138,7 @@ private extension SeriesDetailViewController {
     }
 }
 
+//MARK: - Collectionview datasource
 extension SeriesDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return characterModel?.count ?? 0
@@ -169,4 +171,11 @@ extension SeriesDetailViewController: UICollectionViewDataSource {
         
         return cell
     }
+}
+
+//MARK: - Constants
+private enum Constans {
+    static let margin: CGFloat = 20
+    static let spaceing: CGFloat = 10
+    static let itemHeight: CGFloat = 200
 }
