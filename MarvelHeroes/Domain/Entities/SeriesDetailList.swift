@@ -38,7 +38,7 @@ struct SeriesDetailInfo {
     let comics: ComicsListInfo?
     let stories: StoriesListInfo?
     let events: EventsListInfo?
-    let characters: CharactersList?
+    let characters: CharacterListInfo?
     let creators: CreatorsListInfo?
     let next: SeriesSummaryInfo?
     let previous: SeriesSummaryInfo?
@@ -59,4 +59,16 @@ struct CreatorsInfo {
 struct SeriesSummaryInfo {
     let name: String?
     let resourceURI: String?
+}
+
+struct CharacterListInfo {
+    let available: Int?
+    let collectionURI: String?
+    let items: [CharacterInfo]?
+    let returned: Int?
+}
+
+struct CharacterInfo {
+    let resourceURI: String?
+    let name: String?
 }

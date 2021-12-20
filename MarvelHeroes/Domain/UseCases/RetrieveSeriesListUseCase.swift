@@ -25,3 +25,22 @@ final class DefaultSeriesUseCase: SeriesUseCase {
         seriesListRepo.seriesList(serie: text).map({ $0.toDomain() })
     }
 }
+
+protocol SeriesDetailUseCase {
+    func execute(url: String) -> Single<CharactersList>
+}
+
+final class DefaultSeriesDetailUseCase: SeriesDetailUseCase {
+    
+    private let seriesListRepo: SeriesRepository
+    private let disposeBag = DisposeBag()
+    
+    init(seriesListRepo: SeriesRepository = DefaultSeriesRepository()) {
+        self.seriesListRepo = seriesListRepo
+    }
+    
+    func execute(url: String) -> Single<CharactersList> {
+        seriesListRepo.charactersFromSerie(url: url).map{ $0.toDomain() }
+    }
+}
+

@@ -43,4 +43,29 @@ final class DefaultSeriesRepository: SeriesRepository {
             return Disposables.create()
         }
     }
+    
+    func charactersFromSerie(url: String) -> Single<CharactersListResponse> {
+        return Single.create { single -> Disposable in
+            let timeStamp = Utils.getTimeStamp()
+            let parameters: [String : Any] = [
+                Params.apiKey : Constants.publicKey,
+                Params.ts : timeStamp,
+                Params.hash : Utils.getHash(timeStamp),
+            ]
+                        
+            AF.request(url, parameters: parameters).response { response in
+                switch response.data {
+                case .some(let data):
+                    guard let response = try? JSONDecoder().decode(CharactersListResponse.self, from: data) else {
+                        single(.failure(ServiceError.mappingError))
+                        return
+                    }
+                    single(.success(response))
+                default:
+                    single(.failure(ServiceError.responseError))
+                }
+            }
+            return Disposables.create()
+        }
+    }
 }

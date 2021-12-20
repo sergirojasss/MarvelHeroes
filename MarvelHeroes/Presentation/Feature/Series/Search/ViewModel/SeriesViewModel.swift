@@ -13,7 +13,7 @@ protocol SeriesViewModel: SeriesViewModelInput, SeriesViewModelOutput {}
 protocol SeriesViewModelInput {
     func viewDidLoad()
     func searchSeries(text: String)
-    func didSelect(_ row: Int) -> Any?
+    func didSelect(_ row: Int) -> UIViewController?
 }
 
 protocol SeriesViewModelOutput {
@@ -44,7 +44,7 @@ struct DefaultSeriesViewModel: SeriesViewModel {
                 switch event {
                 case .success(let seriesList):
                     self.items.value = seriesList.data?.results?.map { SeriesModel.makeModel(from: $0) }
-                case .failure(let error):
+                case .failure( _):
                     //TODO: Error case
                     break
                 }
@@ -52,7 +52,18 @@ struct DefaultSeriesViewModel: SeriesViewModel {
             .disposed(by: disposeBag)
     }
     
-    func didSelect(_ row: Int) -> Any? {
-        return nil
+    func didSelect(_ row: Int) -> UIViewController? {
+        let comic = items.value?[row]
+
+        let detailModel = SeriesDetailModel(title: comic?.title,
+                                            imageUrl: comic?.imageUrl,
+                                            description: comic?.description,
+                                            charactersUrl: comic?.charactersCollectionURI,
+                                            characters: [])
+        let detailViewModel = DefaultSeriesDetailViewModel(model: detailModel)
+        let detailController = SeriesDetailViewController()
+        detailController.viewModel = detailViewModel
+
+        return detailController
     }
 }

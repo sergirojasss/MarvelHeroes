@@ -52,7 +52,7 @@ struct SeriesDetailInfoResponse: Decodable {
     let comics: ComicsListInfoResponse?
     let stories: StoriesListInfoResponse?
     let events: EventsListInfoResponse?
-    let characters: CharactersListResponse?
+    let characters: CharacterListInfoResponse?
     let creators: CreatorsListInfoResponse?
     let next: SeriesSummaryInfoResponse?
     let previous: SeriesSummaryInfoResponse?
@@ -108,3 +108,27 @@ struct SeriesSummaryInfoResponse: Decodable {
         return SeriesSummaryInfo(name: name, resourceURI: resourceURI)
     }
 }
+
+struct CharacterListInfoResponse: Decodable {
+    let available: Int?
+    let collectionURI: String?
+    let items: [CharacterInfoResponse]?
+    let returned: Int?
+    
+    func toDomain() -> CharacterListInfo {
+        return CharacterListInfo(available: available,
+                              collectionURI: collectionURI,
+                              items: items?.map { $0.toDomain() } ,
+                              returned: returned)
+    }
+}
+
+struct CharacterInfoResponse: Decodable {
+    let resourceURI: String?
+    let name: String?
+    
+    func toDomain() -> CharacterInfo {
+        return CharacterInfo(resourceURI: resourceURI, name: name)
+    }
+}
+

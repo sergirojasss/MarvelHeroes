@@ -9,8 +9,8 @@ import Foundation
 
 struct SeriesDetailModel {
     let title: String?
-    let imageUrl: String
-    let image: Box<Data?> = Box(nil)
+    let imageUrl: String?
     let description: String?
-    let characters: [CharacterModel]
+    let charactersUrl: String?
+    let characters: [CharacterModel]?
 }

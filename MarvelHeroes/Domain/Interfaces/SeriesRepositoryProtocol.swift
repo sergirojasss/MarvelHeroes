@@ -10,4 +10,5 @@ import RxSwift
 
 protocol SeriesRepository {
     func seriesList(serie: String) -> Single<SeriesListResponse>
+    func charactersFromSerie(url: String) -> Single<CharactersListResponse>
 }

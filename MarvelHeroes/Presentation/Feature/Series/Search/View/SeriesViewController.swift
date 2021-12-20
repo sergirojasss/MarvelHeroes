@@ -137,7 +137,8 @@ private extension SeriesViewController {
 
 private extension SeriesViewController {
     @objc func didSelectLabel(sender: UITapGestureRecognizer) {
-        guard let indexSelected = sender.view?.tag else { return }
-            let controller = viewModel?.didSelect(indexSelected)
+        guard let indexSelected = sender.view?.tag,
+              let controller = viewModel?.didSelect(indexSelected) else { return }
+        navigationController?.pushViewController(controller, animated: true)
     }
 }
