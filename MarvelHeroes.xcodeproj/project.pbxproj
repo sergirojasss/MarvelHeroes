@@ -220,7 +220,7 @@
 		A8594513276C9E2A00652E8B /* Feature */ = {
 			isa = PBXGroup;
 			children = (
-				A8594518276C9EAA00652E8B /* Series */,
+				A88F49772770757400D1BE65 /* Series */,
 				A8594517276C9EA000652E8B /* Heroes */,
 				A85944CB276C7F0A00652E8B /* MainTabBarController.swift */,
 				A85944CD276C7F0A00652E8B /* Main.storyboard */,
@@ -235,13 +235,6 @@
 				A86DC249276F4230000A39F7 /* Detail */,
 			);
 			path = Heroes;
-			sourceTree = "<group>";
-		};
-		A8594518276C9EAA00652E8B /* Series */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Series;
 			sourceTree = "<group>";
 		};
 		A859451C276C9F8500652E8B /* Model */ = {
@@ -383,6 +376,13 @@
 				A86DC253276F427D000A39F7 /* CharacterDetailView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		A88F49772770757400D1BE65 /* Series */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Series;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
