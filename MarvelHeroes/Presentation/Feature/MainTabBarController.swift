@@ -17,6 +17,12 @@ class MainTabBarController: UITabBarController {
         // Do any additional setup after loading the view.
         
         delegate = self
+        
+        tabBar.items?[0].title = "Heroes"
+        tabBar.items?[0].image = UIImage(named: "ironman")?.withTintColor(.black) 
+        tabBar.items?[1].title = "Comics"
+        tabBar.items?[1].image = UIImage(named: "deadpool")?.withTintColor(.black)
+        
         for controller in viewControllers ?? [] {
             if let navC = controller as? UINavigationController {
                 if let controller = navC.viewControllers.first as? CharactersViewController {
@@ -32,3 +38,5 @@ class MainTabBarController: UITabBarController {
 
 extension MainTabBarController: UITabBarControllerDelegate {
 }
+
+
