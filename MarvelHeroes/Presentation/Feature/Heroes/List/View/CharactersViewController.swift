@@ -13,6 +13,9 @@ class CharactersViewController: UIViewController {
     
     private var disposeBag = DisposeBag()
     var viewModel: CharacterViewModel?
+    var model: [CharacterModel]? {
+        viewModel?.items.value
+    }
     
     private let collectionView: UICollectionView = {
         let layout = CustomCollectionViewLayout()
@@ -68,12 +71,12 @@ private extension CharactersViewController {
 //MARK: - CollectionViewMethods
 extension CharactersViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel?.items.value?.count ?? 0
+        return model?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "characterListCell", for: indexPath) as? CharacterListCell,
-              let model = viewModel?.items.value else { return UICollectionViewCell() }
+              let model = model else { return UICollectionViewCell() }
         let hero = model[indexPath.row]
         cell.title.text = hero.name
         

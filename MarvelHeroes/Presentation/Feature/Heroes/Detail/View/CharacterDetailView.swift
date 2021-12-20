@@ -99,27 +99,32 @@ private extension CharacterDetailViewController {
             scrollView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
 
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            
             imageView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             imageView.heightAnchor.constraint(equalToConstant: 200),
 
             titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
-            titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: safeArea.leadingAnchor),
-            titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: safeArea.trailingAnchor),
+            titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: contentView.leadingAnchor),
+            titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor),
             titleLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
-            descriptionLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
-            descriptionLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
+            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
 
             comicsLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 50),
-            comicsLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
-            comicsLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
+            comicsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            comicsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
 
             storiesLabel.topAnchor.constraint(equalTo: comicsLabel.bottomAnchor, constant: 50),
-            storiesLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
-            storiesLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
+            storiesLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            storiesLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             storiesLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
 
         ])

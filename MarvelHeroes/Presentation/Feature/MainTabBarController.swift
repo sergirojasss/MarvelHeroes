@@ -18,9 +18,13 @@ class MainTabBarController: UITabBarController {
         
         delegate = self
         for controller in viewControllers ?? [] {
-            if let navC = controller as? UINavigationController,
-               let controller = navC.viewControllers.first as? CharactersViewController {
-                controller.viewModel = DefaultCharactersViewModel()
+            if let navC = controller as? UINavigationController {
+                if let controller = navC.viewControllers.first as? CharactersViewController {
+                    controller.viewModel = DefaultCharactersViewModel()
+                } else if let controller = navC.viewControllers.first as? SeriesViewController {
+                    controller.viewModel = DefaultSeriesViewModel()
+                }
+                
             }
         }
     }
