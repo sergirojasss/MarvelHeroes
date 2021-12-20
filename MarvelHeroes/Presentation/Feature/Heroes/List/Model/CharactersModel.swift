@@ -15,7 +15,7 @@ struct CharacterModel {
     let comics: AddedInfoListModel?
     let stories: AddedInfoListModel?
     
-    static func makeModel(from domain: CharacterInfo) -> CharacterModel {
+    static func makeModel(from domain: CharacterDetailInfo) -> CharacterModel {
         return CharacterModel(name: domain.name ?? "",
                               imageUrl: domain.thumbnail ?? "",
                               characterDescription: domain.description ?? "",

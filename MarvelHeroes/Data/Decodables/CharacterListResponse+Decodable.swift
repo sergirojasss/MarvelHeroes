@@ -31,14 +31,14 @@ struct DataInfoResponse: Decodable {
     let count: Int?
     let limit: Int?
     let offset: Int?
-    let results: [CharacterInfoResponse]?
+    let results: [CharacterDetailInfoResponse]?
     
     func toDomain() -> DataInfo {
         return DataInfo(count: count, limit: limit, offset: offset, results: results?.map { $0.toDomain() })
     }
 }
 
-struct CharacterInfoResponse: Decodable {
+struct CharacterDetailInfoResponse: Decodable {
     let id: Int?
     let name: String?
     let description: String?
@@ -51,8 +51,8 @@ struct CharacterInfoResponse: Decodable {
     let events: EventsListInfoResponse?
     let urls: [UrlInfoResponse]?
     
-    func toDomain() -> CharacterInfo {
-        return CharacterInfo(id: id,
+    func toDomain() -> CharacterDetailInfo {
+        return CharacterDetailInfo(id: id,
                              name: name,
                              description: description,
                              modified: modified,

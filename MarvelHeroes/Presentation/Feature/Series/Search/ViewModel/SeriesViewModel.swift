@@ -13,7 +13,7 @@ protocol SeriesViewModel: SeriesViewModelInput, SeriesViewModelOutput {}
 protocol SeriesViewModelInput {
     func viewDidLoad()
     func searchSeries(text: String)
-    func didSelect(_ row: Int) -> UIViewController
+    func didSelect(_ row: Int) -> Any?
 }
 
 protocol SeriesViewModelOutput {

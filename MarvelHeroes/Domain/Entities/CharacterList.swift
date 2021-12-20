@@ -21,10 +21,10 @@ struct DataInfo {
     let count: Int?
     let limit: Int?
     let offset: Int?
-    let results: [CharacterInfo]?
+    let results: [CharacterDetailInfo]?
 }
 
-struct CharacterInfo {
+struct CharacterDetailInfo {
     let id: Int?
     let name: String?
     let description: String?
