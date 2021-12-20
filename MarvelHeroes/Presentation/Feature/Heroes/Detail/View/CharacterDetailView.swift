@@ -36,7 +36,7 @@ class CharacterDetailViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        label.numberOfLines = 0
+        label.numberOfLines = ControllerConstants.infiniteLines
         return label
     }()
 
@@ -49,11 +49,31 @@ class CharacterDetailViewController: UIViewController {
         return imageView
     }()
     
+    private let comicsTitleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        label.numberOfLines = ControllerConstants.oneLine
+        label.font = .boldSystemFont(ofSize: ControllerConstants.fontSize)
+        label.text = ControllerConstants.comics
+        return label
+    }()
+
     private let comicsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        label.numberOfLines = 0
+        label.numberOfLines = ControllerConstants.infiniteLines
+        return label
+    }()
+
+    private let storiesTitleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        label.text = ControllerConstants.stories
+        label.numberOfLines = ControllerConstants.oneLine
+        label.font = .boldSystemFont(ofSize: ControllerConstants.fontSize)
         return label
     }()
 
@@ -61,7 +81,7 @@ class CharacterDetailViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        label.numberOfLines = 0
+        label.numberOfLines = ControllerConstants.infiniteLines
         return label
     }()
 
@@ -69,9 +89,6 @@ class CharacterDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-//        setupCollectionView()
-//        setupBinding()
-//        viewModel?.viewDidLoad()
     }
     
 }
@@ -85,7 +102,9 @@ private extension CharacterDetailViewController {
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(descriptionLabel)
+        contentView.addSubview(comicsTitleLabel)
         contentView.addSubview(comicsLabel)
+        contentView.addSubview(storiesTitleLabel)
         contentView.addSubview(storiesLabel)
         setupConstraints()
         fillView()
@@ -107,29 +126,36 @@ private extension CharacterDetailViewController {
             imageView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            imageView.heightAnchor.constraint(equalToConstant: 200),
+            imageView.heightAnchor.constraint(equalToConstant: Margins.imageHeight),
 
-            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
+            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: Margins.spacing),
             titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: contentView.leadingAnchor),
             titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor),
             titleLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            
-            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
-            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
 
-            comicsLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 50),
-            comicsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            comicsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: Margins.spacing),
+            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Margins.margins),
+            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Margins.margins),
 
-            storiesLabel.topAnchor.constraint(equalTo: comicsLabel.bottomAnchor, constant: 50),
-            storiesLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            storiesLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            comicsTitleLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: Margins.bigSpacing),
+            comicsTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Margins.margins),
+            comicsTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Margins.margins),
+
+            comicsLabel.topAnchor.constraint(equalTo: comicsTitleLabel.bottomAnchor, constant: Margins.spacing),
+            comicsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Margins.margins),
+            comicsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Margins.margins),
+
+            storiesTitleLabel.topAnchor.constraint(equalTo: comicsLabel.bottomAnchor, constant: Margins.bigSpacing),
+            storiesTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Margins.margins),
+            storiesTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Margins.margins),
+
+            storiesLabel.topAnchor.constraint(equalTo: storiesTitleLabel.bottomAnchor, constant: Margins.spacing),
+            storiesLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Margins.margins),
+            storiesLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Margins.margins),
             storiesLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
-
         ])
     }
-    
+        
     func fillView() {
         if let data = viewModel?.image,
            let image = UIImage(data: data) {
@@ -138,7 +164,23 @@ private extension CharacterDetailViewController {
         
         titleLabel.text = viewModel?.name
         descriptionLabel.text = viewModel?.description
-        comicsLabel.text = viewModel?.comics?.joined(separator: "\n\n")
-        storiesLabel.text = viewModel?.stories?.joined(separator: "\n\n")
+        comicsLabel.text = viewModel?.comics?.joined(separator: ControllerConstants.jumpLine)
+        storiesLabel.text = viewModel?.stories?.joined(separator: ControllerConstants.jumpLine)
     }
+}
+
+private enum Margins {
+    static let margins: CGFloat = 20
+    static let spacing: CGFloat = 10
+    static let bigSpacing: CGFloat = 50
+    static let imageHeight: CGFloat = 200
+}
+
+private enum ControllerConstants {
+    static let comics = "comics".uppercased()
+    static let stories = "stories".uppercased()
+    static let oneLine = 1
+    static let infiniteLines = 0
+    static let fontSize: CGFloat = 21
+    static let jumpLine = "\n\n"
 }
