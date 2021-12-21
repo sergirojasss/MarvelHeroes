@@ -57,7 +57,7 @@ class DefaultCharactersViewModel: CharacterViewModel {
                                                description: heroModel?.characterDescription,
                                                comics: heroModel?.comics,
                                                stories: heroModel?.stories)
-        let detailViewModel = CharacterDetailViewModel(model: detailModel)
+        let detailViewModel = DefaultCharacterDetailViewModel(model: detailModel)
         let detailController = CharacterDetailViewController()
         detailController.viewModel = detailViewModel
         

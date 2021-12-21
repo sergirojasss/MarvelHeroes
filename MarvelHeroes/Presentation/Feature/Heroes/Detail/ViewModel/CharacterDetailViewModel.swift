@@ -7,8 +7,21 @@
 
 import Foundation
 
-struct CharacterDetailViewModel {
+protocol CharacterDetailViewModel: CharacterDetailViewModelInput, CharacterDetailViewModelOutput{}
+
+protocol CharacterDetailViewModelInput {
     
+}
+
+protocol CharacterDetailViewModelOutput {
+    var name: String { get }
+    var image: Data? { get }
+    var description: String? { get }
+    var comics: [String]? { get }
+    var stories: [String]? { get }
+}
+
+struct DefaultCharacterDetailViewModel: CharacterDetailViewModel {
     var name: String
     var image: Data?
     var description: String?
